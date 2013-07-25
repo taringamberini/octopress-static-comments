@@ -7,15 +7,16 @@
 			<h1>{{page.comment_count}} Comments</h1>
 	{% endcase %}
 	{% for c in page.comments %}
-		<div class="comment {% cycle 'odd', 'even' %}">
+		<div class="comment_{% cycle 'odd', 'even' %}">
 			<p class="comment_header">
-				From: {% if c.link and c.link != '' %}
+				{% if c.link and c.link != '' %}
 					<a href="{{c.link}}">{{c.name}}</a>
 				{% else %}
 					{{c.name}}
 				{% endif %}
-				<br />
-				<span class="comment_date">{{c.date}}</span>
+				{% if c.date %}
+					– <span class="comment_date">{{c.date}}</span>
+				{% endif %}
 			</p>
 			<p>
 				{{c.comment | newline_to_br}}
@@ -23,24 +24,20 @@
 		</div>
 	{% endfor %}
 	<h1>Post a comment</h1>
-	<p style="font-style: italic">
-		All comments are held for moderation; basic HTML formatting accepted.
+	<p>
+		Your email address will <em>not</em> be published. The form
+		doesn’t spit out an email? Go get a real browser and/or mail client.
 	</p>
-	<form id="commentform" method="POST" action="{{site.url}}/commentsubmit.php">
+	<form id="commentform" enctype="text/plain" method="POST" action="mailto:{{ site.email }}?Subject=New Comment: {{ page.title }}">
 		<input type="hidden" name="post_id" value="{{page.id}}" />
-		<input type="hidden" name="return_url" value="{{site.url}}{{page.url}}" />
 		<table>
 			<tr>
 				<th>Name:</th>
-				<td><input type="text" size="25" name="name" /> (required)</td>
-			</tr>
-			<tr>
-				<th>E-mail:</th>
-				<td><input type="text" size="25" name="email" /> (required, not published)</td>
+				<td><input type="text" size="25" name="name" /></td>
 			</tr>
 			<tr>
 				<th>Website:</th>
-				<td><input type="text" size="25" name="link" /> (optional)</td>
+				<td><input type="text" size="25" name="link" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><textarea name="comment" rows="10" cols="60" ></textarea></td>

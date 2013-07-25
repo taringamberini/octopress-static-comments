@@ -1,3 +1,7 @@
+This is a fork of https://github.com/mpalmer/jekyll-static-comments using a
+html email form instead of a php script to send comment emails. This way,
+your web server still has to serve static web pages only.
+
 # Jekyll::StaticComments
 
 Whilst most people go for a Disqus account, or some similar JS-abusing means
@@ -7,25 +11,28 @@ comments with posts and rendering them all as one big, awesome page.
 
 ## Quick Start (or "what are all these files for?")
 
-1. Put the `static_comments.rb` file in the `_plugins` directory of your
-Jekyll site.
+1. Move the `plugins`, `sass` and `source` folders into your octopress
+   directory. For pure Jekyll, find out where to put the files first :)
 
-1. Edit the variables at the top of `commentsubmit.php`, and then place it
-somewhere suitable in your site.
+1. include the comments section somewhere in your site template
+   (`{% include custom/comments.html %}`).
 
-1. Modify `comment_received.html` to your liking (add a YAML front-matter to
-render it in your site's style, for instance) and then place it alongside
-`commentsubmit.php`.
-
-1. Using `comment_template.html` as a base, add the appropriate code to your
-blog post template.  Remember to provide an appropriate URL to
-`commentsubmit.php`.
-
-1. Create a `_comments` directory somewhere in your Jekyll site, and
-populate it with YAML comments (as produced by `commentsubmit.php`, or
-otherwise).
+1. Create a `_comments` directory in your `source` directory, and populate it
+   with YAML comments.
 
 1. Enjoy a wonderful, spam-free, static-commenting Nirvana.
+
+If you receive a comment email:
+
+1. Copy the mail’s content to a file in `source/_comments`.
+
+1. Replace the `=` in each key value pair with `: `.
+
+1. Add a `date: YYYY-MM-DD HH:MM` line according to the email data.
+
+1. (optional) Remove the `submit: submit` line.
+
+1. Rebuild and -upload your site.
 
 ## Technical details
 
@@ -65,14 +72,6 @@ stored in.  Hence, you can preserve strict date ordering of your comments
 by ensuring that the filenames are based around the date/time of comment
 submission.
 
-Of course, the tricky bit in all this is getting the comments from your
-users into the filesystem.  For that, I'm using the `commentsubmit.php` in
-this repo, which simply takes all the fields in your comment form, dumps
-them straight into YAML, and e-mails it to me.  However, you can do whatever
-you like -- save them somewhere on your webserver for you to scp down later,
-or go the whole hog and have them automatically committed to your git repo
-and the site regenerated.
-
 E-mailing the comments to you, though, is a fairly natural workflow.  You
 just save the comments out to your `_comments` directory, then re-generate
 the site and upload.  This provides a natural "moderation" mechanism, at the
@@ -87,19 +86,7 @@ code.  Yes, apparently Liquid really *is* that stupid.  At the very least,
 you'll need to put a prefix or suffix or something so that Liquid doesn't
 think you're trying to execute it's `comment` function.
 
-## Still too much dynamic code?
-
-If you like the idea of static comments, but you think that there's still
-too much dynamic code, then you might like to consider [Tomas Carnecky's
-even-more-static-comments](https://blog.caurea.org/2012/03/31/this-blog-has-comments-again.html),
-which uses a special per-post e-mail address to receive comments via a
-`mailto:` URL.
-
 ## Licencing, bug reports, patches, etc
 
 This plugin is licenced under the terms of the [GNU GPL version
-3](http://www.gnu.org/licenses/gpl-3.0.html).  If it works for you, great. 
-If it doesn't, please [e-mail me](mailto:mpalmer@hezmatt.org) a patch with a
-description of the bug.  Bug reports without patches will probably be
-ignored unless I'm feeling in a good mood.  Particularly bug reports may be
-publically ridiculed.
+3](http://www.gnu.org/licenses/gpl-3.0.html).

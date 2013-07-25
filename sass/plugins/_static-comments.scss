@@ -1,0 +1,30 @@
+#comments {
+  padding-left: $pad-min;
+  padding-right: $pad-min;
+  @media only screen and (min-width: 480px) {
+    padding-left: $pad-narrow;
+    padding-right: $pad-narrow;
+  }
+  @media only screen and (min-width: 768px) {
+    padding-left: $pad-medium;
+    padding-right: $pad-medium;
+  }
+  @media only screen and (min-width: 992px) {
+    padding-left: $pad-wide;
+    padding-right: $pad-wide;
+  }
+}
+#comments h1 {
+  font-size: 1.2em;
+}
+.comment_odd, .comment_even {
+  padding-left: $pad-min;
+  padding-right: $pad-min;
+}
+.comment_header {
+  margin-bottom: 0;
+  margin-left: -0.5*$pad-min;
+}
+.comment_date {
+  font-style: italic;
+}
