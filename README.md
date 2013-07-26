@@ -2,7 +2,7 @@ This is a fork of https://github.com/mpalmer/jekyll-static-comments using a
 html email form instead of a php script to send comment emails. This way,
 your web server still has to serve static web pages only.
 
-# Jekyll::StaticComments
+# Octopress StaticComments
 
 Whilst most people go for a Disqus account, or some similar JS-abusing means
 of putting comments on their blog, I'm old-fashioned, and like my site to be
