@@ -19,9 +19,7 @@
 				{% endif %}
 				<a href="#{{c.comment_id}}" title="Permalink">#</a>
 			</p>
-			<p>
-				{{c.comment | newline_to_br}}
-			</p>
+			{{c.comment | markdownify }}
 		</div>
 	{% endfor %}
 	<h1>Post a comment</h1>
