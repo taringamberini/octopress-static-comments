@@ -7,7 +7,7 @@
 			<h1>{{page.comment_count}} Comments</h1>
 	{% endcase %}
 	{% for c in page.comments %}
-		<div class="comment_{% cycle 'odd', 'even' %}">
+		<div id="{{c.comment_id}}" class="comment_{% cycle 'odd', 'even' %}">
 			<p class="comment_header">
 				{% if c.link and c.link != '' %}
 					<a href="{{c.link}}">{{c.name}}</a>
@@ -17,6 +17,7 @@
 				{% if c.date %}
 					– <span class="comment_date">{{c.date}}</span>
 				{% endif %}
+				<a href="#{{c.comment_id}}" title="Permalink">#</a>
 			</p>
 			<p>
 				{{c.comment | newline_to_br}}

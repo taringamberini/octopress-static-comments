@@ -1,13 +1,19 @@
-This is a fork of https://github.com/mpalmer/jekyll-static-comments using a
-html email form instead of a php script to send comment emails. This way,
-your web server still has to serve static web pages only.
+This is a fork inspired by:
+
+* [Matt Palmer Jekyll Static Comments plugin](http://theshed.hezmatt.org/jekyll-static-comments)
+* [Kaimi Octopress Static Comments plugin](https://github.com/kaimi/octopress-static-comments)
 
 # Octopress StaticComments
 
 Whilst most people go for a Disqus account, or some similar JS-abusing means
 of putting comments on their blog, I'm old-fashioned, and like my site to be
-dead-tree useable.  Hence this plugin: it provides a means of associating
+dead-tree usable. Hence this plugin: it provides a means of associating
 comments with posts and rendering them all as one big, awesome page.
+
+Features:
+
+* receiving comments via email
+* automatically generated comment permalink
 
 ## Quick Start (or "what are all these files for?")
 
@@ -30,47 +36,80 @@ If you receive a comment email:
 
 1. Add a `date: YYYY-MM-DD HH:MM` line according to the email data.
 
-1. (optional) Remove the `submit: submit` line.
-
 1. Rebuild and -upload your site.
 
 ## Technical details
+
+### Where to store comments
 
 To use StaticComments, you need to have a store of comments; this is a
 directory, called `_comments`, which contains all your comments.  You can
 have an arbitrary hierarchy inside this `_comments` directory (so you can
 put comments in post-specific directories, if you like), and the `_comments`
 directory can be anywhere in your site tree (I put it alongside my `_posts`
-directory).  The files containing comments can be named anything you like --
+directory). The files containing comments can be named anything you like --
 every single file within the `_comments` directory will be read and parsed
 as a comment.
 
-Each file in `_comments` represents a single comment, as a YAML hash.  The
-YAML must contain a `post_id` attribute, which corresponds to the `id` of
-the post it is a comment on, but apart from that the YAML fields are
-anything you want them to be.
+### Comment content and other fields
+
+Each file in `_comments` represents a single comment object, as a YAML hash.
+The YAML must contain:
+
+* a `post_id` field, which corresponds to the `id` of the post it is a
+  comment on
+* a `date` field, which corresponds to the email date
+* a `comment` field, which contains the comment
+
+but apart from that the YAML fields are anything you want them to be.
 
 The fields in your YAML file will be mapped to fields in a Comment
-object.  There is a new `page.comments` field, which contains a list of the
-Comment objects for each post.  Iterating through a post and printing the
-comments is as simple as:
+object. There is a new `page.comments` field, which contains a list of the
+Comment objects for each post. Iterating through a post and printing the
+comments is simple. For example if your YAML comment file is:
+
+    ---
+    name: Ann
+    link: https://www.ann.com
+    comment: 'Hi Tarin,
+
+      Thanks for this great post.
+
+      Cheers'
+
+you can iterate and print post comments with:
 
     {% for c in page.comments %}
-      <a href="{{c.link}}">{{c.nick}}</a>
+      <a href="{{c.link}}">{{c.name}}</a>
       <p>
-        {{c.content}}
+        {{c.comment | newline_to_br}
       </p>
       <hr />
     {% endfor %}
 
-This, of course, assumes that your YAML comments have the `link`, `nick`,
-and `content` fields.  Your mileage will vary.
+Your YAML fields, of course, may vary.
 
-The order of the comments list returned in the page.comments array is
-based on the lexical ordering of the filenames that the comments are
-stored in.  Hence, you can preserve strict date ordering of your comments
-by ensuring that the filenames are based around the date/time of comment
-submission.
+### Comment permalink
+
+Each comment has an automatically generated `comment_id` YAML field which can
+be used as a comment permalink:
+
+    {% for c in page.comments %}
+      <a href="#{{c.comment_id}}" title="Permalink">#</a>
+      <p id="{{c.comment_id}}">
+        {{c.comment | newline_to_br}}
+      </p>
+      <hr />
+    {% endfor %}
+
+
+The `comment_id` value is computed as the ordinal position of the comment
+among all comment YAML files sorted by their mandatory `date` field.
+
+In this way you are free both to call your comment YAML files as you prefer,
+and storing (or moving) them everywhere under `_comments` directory.
+
+### Comments moderation
 
 E-mailing the comments to you, though, is a fairly natural workflow.  You
 just save the comments out to your `_comments` directory, then re-generate
