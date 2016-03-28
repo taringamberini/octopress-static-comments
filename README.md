@@ -14,6 +14,7 @@ Features:
 
 * receiving comments via email
 * automatically generated comment permalink
+* comments written in markdown
 
 ## Quick Start (or "what are all these files for?")
 
@@ -108,6 +109,37 @@ among all comment YAML files sorted by their mandatory `date` field.
 
 In this way you are free both to call your comment YAML files as you prefer,
 and storing (or moving) them everywhere under `_comments` directory.
+
+### Comment written in markdown
+
+You can include comment as markdown. For example if your comment YAML file
+has a comment written in markdown:
+
+    ---
+    post_id: /blog/Great-Post
+    date: 2016-03-13 22:20
+    name: Ann
+    comment: ! 'Hi Tarin,
+
+
+      Thanks for this great post.
+
+
+      I would add that ...
+
+
+      Best regards,<br />Ann'
+
+you can include it by using the `markdownify` filter:
+
+	{% for c in page.comments %}
+      <div>
+        {{c.comment | markdownify}}
+      </div>
+      <hr />
+	{% endfor %}
+
+For examples see the `source/_comments/` directory.
 
 ### Comments moderation
 
