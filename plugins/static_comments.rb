@@ -30,8 +30,8 @@ class Jekyll::Post
 	
 	def to_liquid(*args)
 		data = to_liquid_without_comments(*args)
-		data['comments'] = StaticComments::find_for_post(self)
-		data['comment_count'] = data['comments'].length
+		data['static_comments'] = StaticComments::find_for_post(self)
+		data['static_comments_count'] = data['static_comments'].length
 		data
 	end
 end

@@ -65,9 +65,9 @@ The YAML must contain:
 but apart from that the YAML fields are anything you want them to be.
 
 The fields in your YAML file will be mapped to fields in a Comment
-object. There is a new `page.comments` field, which contains a list of the
-Comment objects for each post. Iterating through a post and printing the
-comments is simple. For example if your YAML comment file is:
+object. There is a new `page.static_comments` field, which contains a list
+of the comment objects for each post. Iterating through a post and printing
+the comments is simple. For example if your YAML comment file is:
 
     ---
     name: Ann
