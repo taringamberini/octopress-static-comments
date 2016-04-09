@@ -23,7 +23,7 @@ Features:
    directory. For pure Jekyll, find out where to put the files first :)
 
 1. include the comments section somewhere in your site template
-   (`{% include custom/comments.html %}`).
+   (`{% include custom/static_comments.html %}`).
 
 1. Create a `_comments` directory in your `source` directory, and populate it
    with YAML comments.
@@ -160,7 +160,7 @@ Then in your post layout at `source/_layouts/post.html` add the StaticComments
 switch on/off lines:
 
     {% if site.show_static_comments == true and page.comments == true %}
-        {% include custom/comments.html %}
+        {% include custom/static_comments.html %}
     {% endif %}
 
 While the `show_static_comments` lets you switching on/off comments
