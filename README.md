@@ -15,6 +15,7 @@ Features:
 * receiving comments via email
 * automatically generated comment permalink
 * comments written in markdown
+* globally switching on/off post comments
 
 ## Quick Start (or "what are all these files for?")
 
@@ -140,6 +141,36 @@ you can include it by using the `markdownify` filter:
 	{% endfor %}
 
 For examples see the `source/_comments/` directory.
+
+### Globally switching on/off post comments
+
+In your Octopress `_config.yml` insert the StaticComments configuration lines:
+
+    # Static Comments
+    show_static_comments: true
+    email_static_comment_to: 
+
+where `email_static_comment_to` is the email address to which comments will
+be emailed.
+
+If you like you can insert them just after the Disqus configuration lines
+which come with the Octopress default setup.
+
+Then in your post layout at `source/_layouts/post.html` add the StaticComments
+switch on/off lines:
+
+    {% if site.show_static_comments == true and page.comments == true %}
+        {% include custom/comments.html %}
+    {% endif %}
+
+While the `show_static_comments` lets you switching on/off comments
+for all posts, the `page.comments` lets you switching on/off comments
+for each single post by setting to the `comments` field present in
+the YAML-front-matter of each blog
+[post created with the rake `new_post` task](http://octopress.org/docs/blogging/). 
+
+If you like you can insert the StaticComments switch on/off lines just after
+the Disqus lines which come with the Octopress default setup.
 
 ### Comments moderation
 

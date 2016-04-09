@@ -27,7 +27,7 @@
 		Your email address will <em>not</em> be published. The form
 		doesn’t spit out an email? Go get a real browser and/or mail client.
 	</p>
-	<form id="commentform" enctype="text/plain" method="POST" action="mailto:{{ site.email }}?Subject=New Comment: {{ page.title }}">
+    <form id="commentform" enctype="text/plain" method="POST" action="mailto:{{ site.email_static_comment_to }}?Subject=New Comment: {{ page.title }}">
 		<input type="hidden" name="post_id" value="{{page.id}}" />
 		<table>
 			<tr>
