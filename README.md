@@ -15,6 +15,7 @@ Features:
 * receiving comments via email
 * automatically generated comment permalink
 * comments written in markdown
+* globally switching on/off post comments
 
 ## Quick Start (or "what are all these files for?")
 
@@ -22,7 +23,7 @@ Features:
    directory. For pure Jekyll, find out where to put the files first :)
 
 1. include the comments section somewhere in your site template
-   (`{% include custom/comments.html %}`).
+   (`{% include custom/static_comments.html %}`).
 
 1. Create a `_comments` directory in your `source` directory, and populate it
    with YAML comments.
@@ -65,9 +66,9 @@ The YAML must contain:
 but apart from that the YAML fields are anything you want them to be.
 
 The fields in your YAML file will be mapped to fields in a Comment
-object. There is a new `page.comments` field, which contains a list of the
-Comment objects for each post. Iterating through a post and printing the
-comments is simple. For example if your YAML comment file is:
+object. There is a new `page.static_comments` field, which contains a list
+of the comment objects for each post. Iterating through a post and printing
+the comments is simple. For example if your YAML comment file is:
 
     ---
     name: Ann
@@ -140,6 +141,36 @@ you can include it by using the `markdownify` filter:
 	{% endfor %}
 
 For examples see the `source/_comments/` directory.
+
+### Globally switching on/off post comments
+
+In your Octopress `_config.yml` insert the StaticComments configuration lines:
+
+    # Static Comments
+    show_static_comments: true
+    email_static_comment_to: 
+
+where `email_static_comment_to` is the email address to which comments will
+be emailed.
+
+If you like you can insert them just after the Disqus configuration lines
+which come with the Octopress default setup.
+
+Then in your post layout at `source/_layouts/post.html` add the StaticComments
+switch on/off lines:
+
+    {% if site.show_static_comments == true and page.comments == true %}
+        {% include custom/static_comments.html %}
+    {% endif %}
+
+While the `show_static_comments` lets you switching on/off comments
+for all posts, the `page.comments` lets you switching on/off comments
+for each single post by setting to the `comments` field present in
+the YAML-front-matter of each blog
+[post created with the rake `new_post` task](http://octopress.org/docs/blogging/). 
+
+If you like you can insert the StaticComments switch on/off lines just after
+the Disqus lines which come with the Octopress default setup.
 
 ### Comments moderation
 

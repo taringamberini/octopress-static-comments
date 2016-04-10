@@ -1,30 +1,51 @@
 #comments {
-  padding-left: $pad-min;
-  padding-right: $pad-min;
-  @media only screen and (min-width: 480px) {
-    padding-left: $pad-narrow;
-    padding-right: $pad-narrow;
-  }
-  @media only screen and (min-width: 768px) {
-    padding-left: $pad-medium;
-    padding-right: $pad-medium;
-  }
-  @media only screen and (min-width: 992px) {
-    padding-left: $pad-wide;
-    padding-right: $pad-wide;
-  }
-}
-#comments h1 {
-  font-size: 1.2em;
+    padding-left: $pad-min;
+    padding-right: $pad-min;
+    @media only screen and (min-width: 480px) {
+        padding-left: $pad-narrow;
+        padding-right: $pad-narrow;
+    }
+    @media only screen and (min-width: 768px) {
+        padding-left: $pad-medium;
+        padding-right: $pad-medium;
+    }
+    @media only screen and (min-width: 992px) {
+        padding-left: $pad-wide;
+        padding-right: $pad-wide;
+    }
+
+    article {
+        background: transparent url("/images/dotted-border.png") repeat-x scroll left top;
+    }
+    h2 {
+        padding-top: 0.8em;
+        background: transparent url("/images/dotted-border.png") repeat-x scroll left top;
+    }
 }
 .comment_odd, .comment_even {
-  padding-left: $pad-min;
-  padding-right: $pad-min;
+    padding-left: $pad-min;
+    padding-right: $pad-min;
 }
 .comment_header {
-  margin-bottom: 0;
-  margin-left: -0.5*$pad-min;
+    font-size: 0.85em;
+    time::before {
+        content: "•";
+        padding: 0px 0.4em 0px 0.2em;
+    }
+    img {
+        float: right;
+        width: 4em;
+    }
 }
-.comment_date {
-  font-style: italic;
+#commentform {
+    label {
+        display: block;
+    }
+    input[id="website"] {
+        width: 75%;
+    }
+    textarea {
+        width: 100%;
+        height: 20em;
+    }
 }

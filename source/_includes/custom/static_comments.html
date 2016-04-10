@@ -1,0 +1,47 @@
+<section id="comments">
+    {% case page.static_comments_count %}
+        {% when 0 %}
+        {% when 1 %}
+            <h2>1 Comment</h2>
+        {% else %}
+            <h2>{{page.static_comments_count}} Comments</h2>
+    {% endcase %}
+	{% for c in page.static_comments %}
+		<article id="{{c.comment_id}}" class="comment_{% cycle 'odd', 'even' %}">
+			<p class="comment_header">
+                Posted by
+				{% if c.link and c.link != '' %}
+					<a href="{{c.link}}">{{c.name}}</a>
+				{% else %}
+					{{c.name}}
+				{% endif %}
+                <time datetime="{{ c.date | date: site.date_format }}"><span class="date">{{c.date | date: site.date_format }}</span></time>
+				<a href="#{{c.comment_id}}" title="Permalink">#</a>
+			</p>
+			{{c.comment | markdownify }}
+		</article>
+	{% endfor %}
+	<h2>Post a comment</h2>
+	<p>
+		Your email address will <em>not</em> be published. The form
+		doesn’t spit out an email? Go get a real browser and/or mail client.
+	</p>
+    <form id="commentform" enctype="text/plain" method="POST" action="mailto:{{ site.email_static_comment_to }}?Subject=New Comment: {{ page.title }}">
+		<input type="hidden" name="post_id" value="{{page.id}}" />
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" />
+        </p>
+        <p>
+            <label for="link">Website:</label>
+            <input type="text" id="link" name="link" />
+        </p>
+        <p>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment"></textarea>
+        </p>
+        <p>
+            <input type="submit" name="submit" value="Submit Comment" />
+        </p>
+	</form>
+</section>
