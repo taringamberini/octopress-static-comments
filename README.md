@@ -13,6 +13,7 @@ comments with posts and rendering them all as one big, awesome page.
 Features:
 
 * receiving comments via email
+* comments moderation
 * automatically generated comment permalink
 * comments written in markdown
 * globally switching on/off post comments
@@ -90,6 +91,13 @@ you can iterate and print post comments with:
     {% endfor %}
 
 Your YAML fields, of course, may vary.
+
+### Comments moderation
+
+E-mailing the comments to you, though, is a fairly natural workflow.  You
+just save the comments out to your `_comments` directory, then re-generate
+the site and upload.  This provides a natural "moderation" mechanism, at the
+expense of discouraging wide-ranging "realtime" discussion.
 
 ### Comment permalink
 
@@ -171,13 +179,6 @@ the YAML-front-matter of each blog
 
 If you like you can insert the StaticComments switch on/off lines just after
 the Disqus lines which come with the Octopress default setup.
-
-### Comments moderation
-
-E-mailing the comments to you, though, is a fairly natural workflow.  You
-just save the comments out to your `_comments` directory, then re-generate
-the site and upload.  This provides a natural "moderation" mechanism, at the
-expense of discouraging wide-ranging "realtime" discussion.
 
 ## A caveat about Liquid
 
